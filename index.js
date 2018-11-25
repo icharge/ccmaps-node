@@ -14,7 +14,7 @@ const inputMap = '/opt/gamefile/amazon.mmx';
 const outputDir = ''; // -d
 const outputName = 'amazon'; // -o
 
-let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\(800,0\)`;
+let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\\(800,0\\)`;
 
 if (outputDir) {
   command += ` -d "${outputDir}"`;
