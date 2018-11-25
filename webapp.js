@@ -30,14 +30,14 @@ app.post('/upload', upload.single('upload'), (req, res, next) => {
   const {
     render
   } = require('./mapRender');
-  render(uploadedFullPath, path.basename(filename), (err) => {
+  render(uploadedFullPath, filename, (err) => {
     if (err) {
       console.log('Map render with error :', err);
     }
 
     console.log('Map Rendered.');
     // res.sendFile(__dirname + '/static/success.html');
-    res.send(`<img src="/map/thumb_${path.basename(filename)}.jpg" />`);
+    res.send(`<img src="/map/thumb_${filename}.jpg" />`);
   });
 });
 
