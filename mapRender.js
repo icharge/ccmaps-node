@@ -1,27 +1,24 @@
 const path = require('path');
 const exec = require('child-process-promise').exec;
-
-const NOOP = () => { };
+const config = require('./config.json');
+const NOOP = () => {};
 
 const RENDERER = 'CNCMaps.Renderer.exe';
 
 const fullPath = path.join(__dirname, 'renderer', RENDERER);
 
-// const mixDir = '/opt/gamefile';
+const mixDir = config.gamedir;
 const outputDir = ''; // -d
-const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
-// const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
-
-const isCreateThumbnail = true;
-const THUMB_MAX_WIDTH = 800;
 
 exports.render = (inputMap, outputName = '', callback = NOOP) => {
   // const inputMap = '/opt/gamefile/amazon.mmx';
 
+  // const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
+  // const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
 
   // const outputName = 'amazon'; // -o
 
-  let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S`;
+  let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\\(800,0\\)`;
 
   if (outputDir) {
     command += ` -d "${outputDir}"`;
@@ -29,11 +26,6 @@ exports.render = (inputMap, outputName = '', callback = NOOP) => {
 
   if (outputName) {
     command += ` -o "${outputName}"`;
-  }
-
-  if (isCreateThumbnail) {
-    command += ` -z ${process.platform !== 'win32'
-      ? `+\\(${THUMB_MAX_WIDTH},0\\)` : `+(${THUMB_MAX_WIDTH},0)`}`;
   }
 
   if (process.platform !== 'win32') {

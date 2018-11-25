@@ -27,7 +27,9 @@ app.post('/upload', upload.single('upload'), (req, res, next) => {
   const uploadedFullPath = path.join(__dirname, 'uploads', filename);
 
   // Send to render map
-  const { render } = require('./mapRender');
+  const {
+    render
+  } = require('./mapRender');
   render(uploadedFullPath, path.basename(filename), (err) => {
     if (err) {
       console.log('Map render with error :', err);
