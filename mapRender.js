@@ -16,7 +16,7 @@ exports.render = (inputMap, outputName = '', callback = NOOP) => {
   // const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
   // const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
 
-  const outputName = 'amazon'; // -o
+  // const outputName = 'amazon'; // -o
 
   let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\\(800,0\\)`;
 
