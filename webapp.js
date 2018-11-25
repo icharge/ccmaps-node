@@ -15,6 +15,7 @@ const upload = multer({
 const app = express();
 
 app.use('/', express.static(__dirname + '/static'));
+app.use('/map', express.static(__dirname + '/uploads'));
 app.post('/upload', upload.single('upload'), (req, res, next) => {
   const {
     filename,
@@ -33,7 +34,8 @@ app.post('/upload', upload.single('upload'), (req, res, next) => {
     }
 
     console.log('Map Rendered.');
-    res.sendFile(__dirname + '/static/success.html');
+    // res.sendFile(__dirname + '/static/success.html');
+    res.send(`<img src="/map/thumb_${path.basename(filename)}.jpg" />`);
   });
 });
 
