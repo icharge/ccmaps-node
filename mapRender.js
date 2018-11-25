@@ -1,13 +1,14 @@
 const path = require('path');
 const exec = require('child-process-promise').exec;
-
-const NOOP = () => { };
+const config = require('./config.json');
+const NOOP = () => {};
 
 const RENDERER = 'CNCMaps.Renderer.exe';
 
 const fullPath = path.join(__dirname, 'renderer', RENDERER);
 
-const mixDir = '/opt/gamefile';
+const mixDir = config.gamedir;
+
 const outputDir = ''; // -d
 
 exports.render = (inputMap, outputName = '', callback = NOOP) => {
