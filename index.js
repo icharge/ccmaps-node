@@ -5,11 +5,11 @@ const RENDERER = 'CNCMaps.Renderer.exe';
 
 const fullPath = path.join(__dirname, 'renderer', RENDERER);
 
-// const mixDir = '/opt/gamefile';
-// const inputMap = '/opt/gamefile/amazon.mmx';
+const mixDir = '/opt/gamefile';
+const inputMap = '/opt/gamefile/amazon.mmx';
 
-const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
-const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
+// const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
+// const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
 
 const outputDir = ''; // -d
 const outputName = 'amazon'; // -o
