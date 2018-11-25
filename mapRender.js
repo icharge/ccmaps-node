@@ -8,7 +8,6 @@ const RENDERER = 'CNCMaps.Renderer.exe';
 const fullPath = path.join(__dirname, 'renderer', RENDERER);
 
 const mixDir = config.gamedir;
-
 const outputDir = ''; // -d
 
 exports.render = (inputMap, outputName = '', callback = NOOP) => {
