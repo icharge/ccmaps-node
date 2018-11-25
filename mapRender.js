@@ -1,47 +1,51 @@
 const path = require('path');
 const exec = require('child-process-promise').exec;
 
+const NOOP = () => { };
+
 const RENDERER = 'CNCMaps.Renderer.exe';
 
 const fullPath = path.join(__dirname, 'renderer', RENDERER);
 
 const mixDir = '/opt/gamefile';
-const inputMap = '/opt/gamefile/amazon.mmx';
-
-// const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
-// const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
-
 const outputDir = ''; // -d
-const outputName = 'amazon'; // -o
 
-let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\\(800,0\\)`;
+exports.render = (inputMap, outputName = '', callback = NOOP) => {
+  // const inputMap = '/opt/gamefile/amazon.mmx';
 
-if (outputDir) {
-  command += ` -d "${outputDir}"`;
-}
+  // const mixDir = 'E:\\Games\\Westwood\\RA2'; // -m
+  // const inputMap = 'E:\\Games\\Westwood\\RA2\\amazon.mmx'; // -i
 
-if (outputName) {
-  command += ` -o "${outputName}"`;
-}
+  const outputName = 'amazon'; // -o
 
-if (process.platform !== 'win32') {
-  // Unix
-  command = `mono ${command}`;
-}
+  let command = `${fullPath} -i "${inputMap}" -j -m "${mixDir}" -r -S -z +\\(800,0\\)`;
 
-console.log('Executing command : ' + command);
+  if (outputDir) {
+    command += ` -d "${outputDir}"`;
+  }
 
-exec(command)
-  .then(result => {
-    const stdout = result.stdout;
-    const stderr = result.stderr;
-    console.log('stdout: ', stdout);
-    console.log('stderr: ', stderr);
-  })
-  .catch(err => {
-    console.error('ERROR: ', err);
-  });
+  if (outputName) {
+    command += ` -o "${outputName}"`;
+  }
 
-exports.render = () => {
+  if (process.platform !== 'win32') {
+    // Unix
+    command = `mono ${command}`;
+  }
 
+  console.log('Executing command : ' + command);
+
+  exec(command)
+    .then(result => {
+      const stdout = result.stdout;
+      const stderr = result.stderr;
+      console.log('stdout: ', stdout);
+      console.log('stderr: ', stderr);
+
+      callback(null);
+    })
+    .catch(err => {
+      console.error('ERROR: ', err);
+      callback(err);
+    });
 };
