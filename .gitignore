@@ -62,3 +62,4 @@ typings/
 
 uploads/*
 !uploads/readme.md
+config.json
