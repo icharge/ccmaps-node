@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -19,10 +20,21 @@ app.post('/upload', upload.single('upload'), (req, res, next) => {
     filename,
     originalname,
   } = req.file;
-  console.log('File name :', filename);
-  console.log('Original File name :', originalname);
+  console.log('Uploaded File name :', filename);
+  console.log('Uploaded Original File name :', originalname);
 
-  res.sendFile(__dirname + '/static/success.html');
+  const uploadedFullPath = path.join(__dirname, 'uploads', filename);
+
+  // Send to render map
+  const { render } = require('./mapRender');
+  render(uploadedFullPath, path.basename(filename), (err) => {
+    if (err) {
+      console.log('Map render with error :', err);
+    }
+
+    console.log('Map Rendered.');
+    res.sendFile(__dirname + '/static/success.html');
+  });
 });
 
 app.listen(8000, () => {
